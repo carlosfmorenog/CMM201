@@ -1,0 +1,2 @@
+Strenghten the point of using functions
+Design a function that converts a string into a list

@@ -1,0 +1,862 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+ 	\usepackage{float}
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CMM201 Week 5: Functions and Classes in Python}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+	\date{}
+    \begin{document}
+    
+    
+    \maketitle
+    
+   
+
+
+    \hypertarget{functions-and-classes-in-python}{%
+\section{FUNCTIONS AND CLASSES IN
+PYTHON}\label{functions-and-classes-in-python}}
+
+    \hypertarget{aims-of-the-lecture}{%
+\subsection{Aims of the Lecture}\label{aims-of-the-lecture}}
+
+\begin{itemize}
+\tightlist
+\item
+  Learn and understand the purpose of using functions and classes in
+  Python.
+\item
+  Implement your own functions.
+\item
+  Learn how classes work by understanding the basic notions of
+  object-oriented programming (OOP).
+\end{itemize}
+
+    \hypertarget{additional-reading-and-sources}{%
+\subsection{Additional Reading and
+Sources}\label{additional-reading-and-sources}}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://realpython.com/lessons/classes-python/}{Real Python}
+\end{itemize}
+
+    \hypertarget{functions}{%
+\section{Functions()}\label{functions}}
+
+    \begin{itemize}
+\tightlist
+\item
+  One of the key components of mathematics and computing code.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  \(x \rightarrow y\): given an input \(x\), you obtain an output \(y\).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The classical example is the straigh line function, \(y=mx+b\)
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  In computing, functions also take inputs and outputs.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  In fact, we have already seen several pre-built functions in Python
+  during previous lessons!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Can you mention any of them?
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} The print function taking a string as an input.}
+        \PY{c+c1}{\PYZsh{} The output is what you see printed.}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hello World!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  Python has a long list of pre-built functions that are located
+  somewhere in the installation files.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Don't worry, we don't care where they are!
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  These functions have been built by someone, and therefore we should
+  also be able to build our own.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Python (and most programming languages) give us the opportunity to
+  create our own functions.
+\end{itemize}
+
+    \hypertarget{how-to-create-a-python-funtion}{%
+\subsection{How to create a Python
+funtion?}\label{how-to-create-a-python-funtion}}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  First think about what you need the function for.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Google it!
+  \item
+    Consider which are the inputs and the outputs that you require.
+  \end{enumerate}
+\end{enumerate}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Name your function with something you remember or relates to what the
+  function does.
+\end{enumerate}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{At the beginning of your code}, \emph{define} the function by
+  using \emph{def}, then the name of the function and a parenthesis
+  where you will indicate the inputs. Finalise the line with ``:''
+\end{enumerate}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Once you press enter, there will be an indent. Start by inserting
+  three single quotes (six in total when the after the IDE
+  autocompletes) and write the description of your function.
+\end{enumerate}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Press enter and leave a space for the actual content.
+\end{enumerate}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Finally, use \emph{return} to indicate that the function is finished.
+  After the word return, you will indicate your outputs.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} The skeleton of your Python function}
+        
+        \PY{k}{def} \PY{n+nf}{myfunction}\PY{p}{(}\PY{n}{i1}\PY{p}{,} \PY{n}{i2}\PY{p}{,} \PY{n}{i3}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}This function does whatever I want\PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{k}{return} \PY{n}{o1}\PY{p}{,} \PY{n}{o2}\PY{p}{,} \PY{n}{o3}
+\end{Verbatim}
+
+
+    \hypertarget{why-creating-a-function}{%
+\subsection{Why creating a function?}\label{why-creating-a-function}}
+
+    \begin{itemize}
+\tightlist
+\item
+  Sometimes you need to call the same code more than once.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} This code uses a foor loop where numbers are added to a variable called \PYZdq{}acc\PYZdq{}.}
+        
+        \PY{n}{numbers} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The list of numbers is,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{n}{numbers}\PY{p}{)}
+        \PY{n}{acc} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{numbers}\PY{p}{:}
+            \PY{n}{acc} \PY{o}{=} \PY{n}{acc} \PY{o}{+} \PY{n}{n}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The accumulated value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{acc}\PY{p}{)}
+\end{Verbatim}
+
+
+    This is what we call an \textbf{accumulator}.
+
+    What would happen if we receive many lists of numbers at different parts
+of our program and we want to accumulate them?
+
+    \hypertarget{creating-and-using-a-function}{%
+\subsection{Creating and using a
+function}\label{creating-and-using-a-function}}
+
+    Create \& execute \emph{accumulate()} (``nothing'' will happen).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{accumulate}\PY{p}{(}\PY{n}{numbers}\PY{p}{,} \PY{n}{acc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}This function takes a list and an accumulator value as an input and delivers the accumulated values as output.\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The list of numbers is,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{numbers}\PY{p}{)}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{numbers}\PY{p}{:} 
+                \PY{n}{acc} \PY{o}{=} \PY{n}{acc} \PY{o}{+} \PY{n}{n}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The accumulated value is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{acc}\PY{p}{)}
+            \PY{k}{return} \PY{n}{acc}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  Two inputs:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{numbers} is a list of numbers.
+  \item
+    \emph{acc} is the current value of the accumulator.
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  \emph{acc} equal to zero? Why?
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  One output, \emph{acc} (same as the input!), is this correct?
+\end{itemize}
+
+    Example of using the \emph{accumulate()} function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+        \PY{n}{accumulate}\PY{p}{(}\PY{n}{a}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  Notice that we didn't had to indicate an initial accumulator
+  \emph{acc} value, and therefore our function assumed it was zero.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Also notice that the list of numbers that we input to our function can
+  have any name we want!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    As long as the inputs are in the right position, the function should
+    work!
+  \end{itemize}
+\end{itemize}
+
+    \hypertarget{storing-the-output}{%
+\subsection{Storing the output}\label{storing-the-output}}
+
+    \begin{itemize}
+\tightlist
+\item
+  We only applied the function, but we didn't store the output!
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}
+        \PY{n}{b} \PY{o}{=} \PY{n}{accumulate}\PY{p}{(}\PY{n}{a}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  We can use a new list of numbers and the accumulator \(b\) to keep
+  accumulating more values from other lists.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{67}\PY{p}{]}
+        \PY{n}{b} \PY{o}{=} \PY{n}{accumulate}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+\end{Verbatim}
+
+
+    What happens if we run again the cell above?
+
+    \hypertarget{classes}{%
+\section{Classes}\label{classes}}
+
+    \begin{itemize}
+\tightlist
+\item
+  Just as there are built in functions and we need to create our own,
+  sometimes we need to create our custom data types!
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  This is the main reason to use classes.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Object-Oriented Programming (OOP): Programming paradigm where objects
+  are manipulated to obtain results.
+  \href{https://en.wikipedia.org/wiki/Object-oriented_programming}{Wikipedia}
+\end{itemize}
+
+    \hypertarget{example-people-as-objects}{%
+\subsection{Example: People as
+Objects}\label{example-people-as-objects}}
+
+    \begin{itemize}
+\tightlist
+\item
+  A data type is a noun, for example a person
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  A person has certain properties such as
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Name
+  \item
+    Age
+  \item
+    Address
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  A person has certain behaviours such as
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Walk
+  \item
+    Talk
+  \item
+    Breathe
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  If we think of a \textbf{class} that creates persons (objects), every
+  person will have a name, age and address particular to that
+  individual.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Moreover, all of those individuals will be capable of walking, talking
+  and breathing.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  When we create an object from a certain class, this is called
+  \textbf{instantiation}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} instantiation of a string}
+        \PY{n}{a} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hello}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  We are unable to see it, but there is a class that creates
+  (instantiates) the string ``Hello'' into the variable ``a''.
+\end{itemize}
+
+    \hypertarget{example-2-a-program-that-creates-doors}{%
+\subsection{Example 2: A program that creates
+doors}\label{example-2-a-program-that-creates-doors}}
+
+    \begin{figure}[H]
+\centering
+\includegraphics{figs/doors.jpg}
+\caption{Fig 1. Doors class}
+\end{figure}
+
+    \hypertarget{classes-in-python}{%
+\subsection{Classes in Python}\label{classes-in-python}}
+
+    \hypertarget{creating-a-class}{%
+\subsubsection{Creating a class}\label{creating-a-class}}
+
+    \begin{itemize}
+\tightlist
+\item
+  First, we define a class by using the \emph{class} operator:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Person}\PY{p}{:}
+            \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  Classes contain \emph{attributes}. There are two types:
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Instance Attributes}: Unique to each object. Any person we
+  create will store its name and age. We can change the attributes
+  without affecting other objects
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Person}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{age}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{age} \PY{o}{=} \PY{n}{age}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  The \textbf{\textbf{init}} function is called an \textbf{initializer}.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  It is automatically called when we instantiate the class.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  It is used to make sure that the class has the default attributes that
+  are needed for the object.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Also used to verify that attributes are entered correctly (i.e.~the
+  age is not negative, the name is a string, etc.)
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Class Attributes}: Unique to each class. Used to specify a
+  default value for all objects.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Person}\PY{p}{:}
+        
+            \PY{n}{species} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mammal}\PY{l+s+s1}{\PYZsq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{age}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{age} \PY{o}{=} \PY{n}{age}
+\end{Verbatim}
+
+
+    \hypertarget{creating-an-object}{%
+\subsubsection{Creating an object}\label{creating-an-object}}
+
+    \begin{itemize}
+\tightlist
+\item
+  Let's instantiate the Person class to create John, age 18:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{p1} \PY{o}{=} \PY{n}{Person}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{John}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{p1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  We can check the attributes (instance \& class) of person \emph{p1} by
+  using the dot notation:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{p1}\PY{o}{.}\PY{n}{name}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{p1}\PY{o}{.}\PY{n}{age}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{p1}\PY{o}{.}\PY{n}{species}
+\end{Verbatim}
+
+
+    \hypertarget{adding-methods-to-the-class}{%
+\subsubsection{Adding methods to the
+class}\label{adding-methods-to-the-class}}
+
+    \begin{itemize}
+\tightlist
+\item
+  To add a behaviour to our person, we use methods. With the following
+  code we are adding a \emph{talk} method to the \emph{Person} class:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Person}\PY{p}{:}
+        
+            \PY{n}{species} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mammal}\PY{l+s+s1}{\PYZsq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{age}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{name}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{age} \PY{o}{=} \PY{n}{age}
+        
+            \PY{k}{def} \PY{n+nf}{talk}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{speech}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ says: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{speech}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{p1} \PY{o}{=} \PY{n}{Person}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{John}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{)}
+        \PY{n}{p1}\PY{o}{.}\PY{n}{talk}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello everyone!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{QUESTION}: Do you think everything that can be done with
+functions is possible with classes and/or vice versa?
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

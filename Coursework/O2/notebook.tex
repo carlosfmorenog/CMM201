@@ -1,0 +1,817 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Coursework\_O2\_v2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{coursework-output-2}{%
+\section{Coursework Output 2}\label{coursework-output-2}}
+
+\emph{Instructions}: In this coursework, you will show your domain of
+the data related Python skills required for business analytics. To do
+so, you will use packages such as \emph{numpy} and \emph{matplotlib}.
+
+    \hypertarget{importing-and-visualising-a-dataset-in-python}{%
+\subsection{Importing and Visualising a Dataset in
+Python}\label{importing-and-visualising-a-dataset-in-python}}
+
+Each student will be assigned a different dataset in a \emph{comma
+separated value} (\emph{.csv}) format. The main goal is to import such
+dataset into Python so that you can wrangle and visualise the data in
+better ways. This will allow you to get your own conclusions and start
+building up knowledge regarding on how you could potentially learn from
+data to predict or classify future instances.
+
+You must create a program which allows you to select from the following
+options: 1. Import and print your dataset into Python as a numpy array.
+2. Query and print an instance of the dataset by row number or by id
+(i.e.~first column of the table). 3. Create a ``reduced'' dataset
+(i.e.~with less columns) by indicating a list of column names to bring
+upon this newly created dataset. 4. Plot the dataset by means of a
+scatterplot which relates two columns specified by the user. The plot
+has to show the \(x\) and \(y\) axis labels as the chosen columns, and
+use the \emph{target/class} column (i.e.~the last one) as the colour
+variable. 5. Exit the program.
+
+    \hypertarget{additional-considerations}{%
+\subsection{Additional Considerations}\label{additional-considerations}}
+
+\begin{itemize}
+\tightlist
+\item
+  The program has to check that every input is valid.
+\item
+  No option (except for exit) can be executed until option 1 is executed
+  first.
+\end{itemize}
+
+    \hypertarget{submission-instructions}{%
+\subsection{Submission Instructions}\label{submission-instructions}}
+
+\begin{itemize}
+\tightlist
+\item
+  Once that you have finished your program, run all cells and run the
+  main program cell using the following sequence of options: 0(wrong
+  option),2(has to fail),1,2(by row index),2(by row name),3,4,5.
+\item
+  Then, without clearing the kernel, generate a html \textbf{OR} pdf
+  file from the Jupyter notebook.
+\item
+  Clear the Jupyter notebook kernel, then name both the Jupyter notebook
+  and the html/pdf files with your id number and submit them to the
+  corresponding Moodle's dropbox before \textbf{12th December, 2019}.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to import all necessary packages}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to define the function corresponding to OPTION 1}
+        
+        \PY{k}{def} \PY{n+nf}{option1}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}With this function you import the dataset into a numpy array.\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{k}{return}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to define the function corresponding to OPTION 2}
+        
+        \PY{k}{def} \PY{n+nf}{option2}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}This function queries and prints a row of the dataset (by row number or id).\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{k}{return}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to define the function corresponding to OPTION 3}
+        
+        \PY{k}{def} \PY{n+nf}{option3}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}This function creates a new dataset by indicating which columns to include.\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{k}{return}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to define the function corresponding to OPTION 4}
+        
+        \PY{k}{def} \PY{n+nf}{option4}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}This function visualises the dataset using a scatterplot.\PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{k}{return}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to create the \PYZdq{}main\PYZdq{} part of your program}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Welcome to **STUDENT}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{S NAME AND ID** business case.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Welcome to Carlos Moreno-Garcia 1813072 business case.
+Select and option
+>> 0
+Error, try again
+Select and option
+>> 2
+The first option to be selected shall be 1. Please try again
+Select and option
+>> 1
+The dataset has been imported!
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+[[1.00e+00 5.10e+00 3.50e+00 1.40e+00 2.00e-01 1.00e+00]
+ [2.00e+00 4.90e+00 3.00e+00 1.40e+00 2.00e-01 1.00e+00]
+ [3.00e+00 4.70e+00 3.20e+00 1.30e+00 2.00e-01 1.00e+00]
+ [4.00e+00 4.60e+00 3.10e+00 1.50e+00 2.00e-01 1.00e+00]
+ [5.00e+00 5.00e+00 3.60e+00 1.40e+00 2.00e-01 1.00e+00]
+ [6.00e+00 5.40e+00 3.90e+00 1.70e+00 4.00e-01 1.00e+00]
+ [7.00e+00 4.60e+00 3.40e+00 1.40e+00 3.00e-01 1.00e+00]
+ [8.00e+00 5.00e+00 3.40e+00 1.50e+00 2.00e-01 1.00e+00]
+ [9.00e+00 4.40e+00 2.90e+00 1.40e+00 2.00e-01 1.00e+00]
+ [1.00e+01 4.90e+00 3.10e+00 1.50e+00 1.00e-01 1.00e+00]
+ [1.10e+01 5.40e+00 3.70e+00 1.50e+00 2.00e-01 1.00e+00]
+ [1.20e+01 4.80e+00 3.40e+00 1.60e+00 2.00e-01 1.00e+00]
+ [1.30e+01 4.80e+00 3.00e+00 1.40e+00 1.00e-01 1.00e+00]
+ [1.40e+01 4.30e+00 3.00e+00 1.10e+00 1.00e-01 1.00e+00]
+ [1.50e+01 5.80e+00 4.00e+00 1.20e+00 2.00e-01 1.00e+00]
+ [1.60e+01 5.70e+00 4.40e+00 1.50e+00 4.00e-01 1.00e+00]
+ [1.70e+01 5.40e+00 3.90e+00 1.30e+00 4.00e-01 1.00e+00]
+ [1.80e+01 5.10e+00 3.50e+00 1.40e+00 3.00e-01 1.00e+00]
+ [1.90e+01 5.70e+00 3.80e+00 1.70e+00 3.00e-01 1.00e+00]
+ [2.00e+01 5.10e+00 3.80e+00 1.50e+00 3.00e-01 1.00e+00]
+ [2.10e+01 5.40e+00 3.40e+00 1.70e+00 2.00e-01 1.00e+00]
+ [2.20e+01 5.10e+00 3.70e+00 1.50e+00 4.00e-01 1.00e+00]
+ [2.30e+01 4.60e+00 3.60e+00 1.00e+00 2.00e-01 1.00e+00]
+ [2.40e+01 5.10e+00 3.30e+00 1.70e+00 5.00e-01 1.00e+00]
+ [2.50e+01 4.80e+00 3.40e+00 1.90e+00 2.00e-01 1.00e+00]
+ [2.60e+01 5.00e+00 3.00e+00 1.60e+00 2.00e-01 1.00e+00]
+ [2.70e+01 5.00e+00 3.40e+00 1.60e+00 4.00e-01 1.00e+00]
+ [2.80e+01 5.20e+00 3.50e+00 1.50e+00 2.00e-01 1.00e+00]
+ [2.90e+01 5.20e+00 3.40e+00 1.40e+00 2.00e-01 1.00e+00]
+ [3.00e+01 4.70e+00 3.20e+00 1.60e+00 2.00e-01 1.00e+00]
+ [3.10e+01 4.80e+00 3.10e+00 1.60e+00 2.00e-01 1.00e+00]
+ [3.20e+01 5.40e+00 3.40e+00 1.50e+00 4.00e-01 1.00e+00]
+ [3.30e+01 5.20e+00 4.10e+00 1.50e+00 1.00e-01 1.00e+00]
+ [3.40e+01 5.50e+00 4.20e+00 1.40e+00 2.00e-01 1.00e+00]
+ [3.50e+01 4.90e+00 3.10e+00 1.50e+00 2.00e-01 1.00e+00]
+ [3.60e+01 5.00e+00 3.20e+00 1.20e+00 2.00e-01 1.00e+00]
+ [3.70e+01 5.50e+00 3.50e+00 1.30e+00 2.00e-01 1.00e+00]
+ [3.80e+01 4.90e+00 3.60e+00 1.40e+00 1.00e-01 1.00e+00]
+ [3.90e+01 4.40e+00 3.00e+00 1.30e+00 2.00e-01 1.00e+00]
+ [4.00e+01 5.10e+00 3.40e+00 1.50e+00 2.00e-01 1.00e+00]
+ [4.10e+01 5.00e+00 3.50e+00 1.30e+00 3.00e-01 1.00e+00]
+ [4.20e+01 4.50e+00 2.30e+00 1.30e+00 3.00e-01 1.00e+00]
+ [4.30e+01 4.40e+00 3.20e+00 1.30e+00 2.00e-01 1.00e+00]
+ [4.40e+01 5.00e+00 3.50e+00 1.60e+00 6.00e-01 1.00e+00]
+ [4.50e+01 5.10e+00 3.80e+00 1.90e+00 4.00e-01 1.00e+00]
+ [4.60e+01 4.80e+00 3.00e+00 1.40e+00 3.00e-01 1.00e+00]
+ [4.70e+01 5.10e+00 3.80e+00 1.60e+00 2.00e-01 1.00e+00]
+ [4.80e+01 4.60e+00 3.20e+00 1.40e+00 2.00e-01 1.00e+00]
+ [4.90e+01 5.30e+00 3.70e+00 1.50e+00 2.00e-01 1.00e+00]
+ [5.00e+01 5.00e+00 3.30e+00 1.40e+00 2.00e-01 1.00e+00]
+ [5.10e+01 7.00e+00 3.20e+00 4.70e+00 1.40e+00 2.00e+00]
+ [5.20e+01 6.40e+00 3.20e+00 4.50e+00 1.50e+00 2.00e+00]
+ [5.30e+01 6.90e+00 3.10e+00 4.90e+00 1.50e+00 2.00e+00]
+ [5.40e+01 5.50e+00 2.30e+00 4.00e+00 1.30e+00 2.00e+00]
+ [5.50e+01 6.50e+00 2.80e+00 4.60e+00 1.50e+00 2.00e+00]
+ [5.60e+01 5.70e+00 2.80e+00 4.50e+00 1.30e+00 2.00e+00]
+ [5.70e+01 6.30e+00 3.30e+00 4.70e+00 1.60e+00 2.00e+00]
+ [5.80e+01 4.90e+00 2.40e+00 3.30e+00 1.00e+00 2.00e+00]
+ [5.90e+01 6.60e+00 2.90e+00 4.60e+00 1.30e+00 2.00e+00]
+ [6.00e+01 5.20e+00 2.70e+00 3.90e+00 1.40e+00 2.00e+00]
+ [6.10e+01 5.00e+00 2.00e+00 3.50e+00 1.00e+00 2.00e+00]
+ [6.20e+01 5.90e+00 3.00e+00 4.20e+00 1.50e+00 2.00e+00]
+ [6.30e+01 6.00e+00 2.20e+00 4.00e+00 1.00e+00 2.00e+00]
+ [6.40e+01 6.10e+00 2.90e+00 4.70e+00 1.40e+00 2.00e+00]
+ [6.50e+01 5.60e+00 2.90e+00 3.60e+00 1.30e+00 2.00e+00]
+ [6.60e+01 6.70e+00 3.10e+00 4.40e+00 1.40e+00 2.00e+00]
+ [6.70e+01 5.60e+00 3.00e+00 4.50e+00 1.50e+00 2.00e+00]
+ [6.80e+01 5.80e+00 2.70e+00 4.10e+00 1.00e+00 2.00e+00]
+ [6.90e+01 6.20e+00 2.20e+00 4.50e+00 1.50e+00 2.00e+00]
+ [7.00e+01 5.60e+00 2.50e+00 3.90e+00 1.10e+00 2.00e+00]
+ [7.10e+01 5.90e+00 3.20e+00 4.80e+00 1.80e+00 2.00e+00]
+ [7.20e+01 6.10e+00 2.80e+00 4.00e+00 1.30e+00 2.00e+00]
+ [7.30e+01 6.30e+00 2.50e+00 4.90e+00 1.50e+00 2.00e+00]
+ [7.40e+01 6.10e+00 2.80e+00 4.70e+00 1.20e+00 2.00e+00]
+ [7.50e+01 6.40e+00 2.90e+00 4.30e+00 1.30e+00 2.00e+00]
+ [7.60e+01 6.60e+00 3.00e+00 4.40e+00 1.40e+00 2.00e+00]
+ [7.70e+01 6.80e+00 2.80e+00 4.80e+00 1.40e+00 2.00e+00]
+ [7.80e+01 6.70e+00 3.00e+00 5.00e+00 1.70e+00 2.00e+00]
+ [7.90e+01 6.00e+00 2.90e+00 4.50e+00 1.50e+00 2.00e+00]
+ [8.00e+01 5.70e+00 2.60e+00 3.50e+00 1.00e+00 2.00e+00]
+ [8.10e+01 5.50e+00 2.40e+00 3.80e+00 1.10e+00 2.00e+00]
+ [8.20e+01 5.50e+00 2.40e+00 3.70e+00 1.00e+00 2.00e+00]
+ [8.30e+01 5.80e+00 2.70e+00 3.90e+00 1.20e+00 2.00e+00]
+ [8.40e+01 6.00e+00 2.70e+00 5.10e+00 1.60e+00 2.00e+00]
+ [8.50e+01 5.40e+00 3.00e+00 4.50e+00 1.50e+00 2.00e+00]
+ [8.60e+01 6.00e+00 3.40e+00 4.50e+00 1.60e+00 2.00e+00]
+ [8.70e+01 6.70e+00 3.10e+00 4.70e+00 1.50e+00 2.00e+00]
+ [8.80e+01 6.30e+00 2.30e+00 4.40e+00 1.30e+00 2.00e+00]
+ [8.90e+01 5.60e+00 3.00e+00 4.10e+00 1.30e+00 2.00e+00]
+ [9.00e+01 5.50e+00 2.50e+00 4.00e+00 1.30e+00 2.00e+00]
+ [9.10e+01 5.50e+00 2.60e+00 4.40e+00 1.20e+00 2.00e+00]
+ [9.20e+01 6.10e+00 3.00e+00 4.60e+00 1.40e+00 2.00e+00]
+ [9.30e+01 5.80e+00 2.60e+00 4.00e+00 1.20e+00 2.00e+00]
+ [9.40e+01 5.00e+00 2.30e+00 3.30e+00 1.00e+00 2.00e+00]
+ [9.50e+01 5.60e+00 2.70e+00 4.20e+00 1.30e+00 2.00e+00]
+ [9.60e+01 5.70e+00 3.00e+00 4.20e+00 1.20e+00 2.00e+00]
+ [9.70e+01 5.70e+00 2.90e+00 4.20e+00 1.30e+00 2.00e+00]
+ [9.80e+01 6.20e+00 2.90e+00 4.30e+00 1.30e+00 2.00e+00]
+ [9.90e+01 5.10e+00 2.50e+00 3.00e+00 1.10e+00 2.00e+00]
+ [1.00e+02 5.70e+00 2.80e+00 4.10e+00 1.30e+00 2.00e+00]
+ [1.01e+02 6.30e+00 3.30e+00 6.00e+00 2.50e+00 3.00e+00]
+ [1.02e+02 5.80e+00 2.70e+00 5.10e+00 1.90e+00 3.00e+00]
+ [1.03e+02 7.10e+00 3.00e+00 5.90e+00 2.10e+00 3.00e+00]
+ [1.04e+02 6.30e+00 2.90e+00 5.60e+00 1.80e+00 3.00e+00]
+ [1.05e+02 6.50e+00 3.00e+00 5.80e+00 2.20e+00 3.00e+00]
+ [1.06e+02 7.60e+00 3.00e+00 6.60e+00 2.10e+00 3.00e+00]
+ [1.07e+02 4.90e+00 2.50e+00 4.50e+00 1.70e+00 3.00e+00]
+ [1.08e+02 7.30e+00 2.90e+00 6.30e+00 1.80e+00 3.00e+00]
+ [1.09e+02 6.70e+00 2.50e+00 5.80e+00 1.80e+00 3.00e+00]
+ [1.10e+02 7.20e+00 3.60e+00 6.10e+00 2.50e+00 3.00e+00]
+ [1.11e+02 6.50e+00 3.20e+00 5.10e+00 2.00e+00 3.00e+00]
+ [1.12e+02 6.40e+00 2.70e+00 5.30e+00 1.90e+00 3.00e+00]
+ [1.13e+02 6.80e+00 3.00e+00 5.50e+00 2.10e+00 3.00e+00]
+ [1.14e+02 5.70e+00 2.50e+00 5.00e+00 2.00e+00 3.00e+00]
+ [1.15e+02 5.80e+00 2.80e+00 5.10e+00 2.40e+00 3.00e+00]
+ [1.16e+02 6.40e+00 3.20e+00 5.30e+00 2.30e+00 3.00e+00]
+ [1.17e+02 6.50e+00 3.00e+00 5.50e+00 1.80e+00 3.00e+00]
+ [1.18e+02 7.70e+00 3.80e+00 6.70e+00 2.20e+00 3.00e+00]
+ [1.19e+02 7.70e+00 2.60e+00 6.90e+00 2.30e+00 3.00e+00]
+ [1.20e+02 6.00e+00 2.20e+00 5.00e+00 1.50e+00 3.00e+00]
+ [1.21e+02 6.90e+00 3.20e+00 5.70e+00 2.30e+00 3.00e+00]
+ [1.22e+02 5.60e+00 2.80e+00 4.90e+00 2.00e+00 3.00e+00]
+ [1.23e+02 7.70e+00 2.80e+00 6.70e+00 2.00e+00 3.00e+00]
+ [1.24e+02 6.30e+00 2.70e+00 4.90e+00 1.80e+00 3.00e+00]
+ [1.25e+02 6.70e+00 3.30e+00 5.70e+00 2.10e+00 3.00e+00]
+ [1.26e+02 7.20e+00 3.20e+00 6.00e+00 1.80e+00 3.00e+00]
+ [1.27e+02 6.20e+00 2.80e+00 4.80e+00 1.80e+00 3.00e+00]
+ [1.28e+02 6.10e+00 3.00e+00 4.90e+00 1.80e+00 3.00e+00]
+ [1.29e+02 6.40e+00 2.80e+00 5.60e+00 2.10e+00 3.00e+00]
+ [1.30e+02 7.20e+00 3.00e+00 5.80e+00 1.60e+00 3.00e+00]
+ [1.31e+02 7.40e+00 2.80e+00 6.10e+00 1.90e+00 3.00e+00]
+ [1.32e+02 7.90e+00 3.80e+00 6.40e+00 2.00e+00 3.00e+00]
+ [1.33e+02 6.40e+00 2.80e+00 5.60e+00 2.20e+00 3.00e+00]
+ [1.34e+02 6.30e+00 2.80e+00 5.10e+00 1.50e+00 3.00e+00]
+ [1.35e+02 6.10e+00 2.60e+00 5.60e+00 1.40e+00 3.00e+00]
+ [1.36e+02 7.70e+00 3.00e+00 6.10e+00 2.30e+00 3.00e+00]
+ [1.37e+02 6.30e+00 3.40e+00 5.60e+00 2.40e+00 3.00e+00]
+ [1.38e+02 6.40e+00 3.10e+00 5.50e+00 1.80e+00 3.00e+00]
+ [1.39e+02 6.00e+00 3.00e+00 4.80e+00 1.80e+00 3.00e+00]
+ [1.40e+02 6.90e+00 3.10e+00 5.40e+00 2.10e+00 3.00e+00]
+ [1.41e+02 6.70e+00 3.10e+00 5.60e+00 2.40e+00 3.00e+00]
+ [1.42e+02 6.90e+00 3.10e+00 5.10e+00 2.30e+00 3.00e+00]
+ [1.43e+02 5.80e+00 2.70e+00 5.10e+00 1.90e+00 3.00e+00]
+ [1.44e+02 6.80e+00 3.20e+00 5.90e+00 2.30e+00 3.00e+00]
+ [1.45e+02 6.70e+00 3.30e+00 5.70e+00 2.50e+00 3.00e+00]
+ [1.46e+02 6.70e+00 3.00e+00 5.20e+00 2.30e+00 3.00e+00]
+ [1.47e+02 6.30e+00 2.50e+00 5.00e+00 1.90e+00 3.00e+00]
+ [1.48e+02 6.50e+00 3.00e+00 5.20e+00 2.00e+00 3.00e+00]
+ [1.49e+02 6.20e+00 3.40e+00 5.40e+00 2.30e+00 3.00e+00]
+ [1.50e+02 5.90e+00 3.00e+00 5.10e+00 1.80e+00 3.00e+00]]
+Select and option
+>> 2
+Select 1 to query by row number or 2 to query by row name:
+>> 1
+Select the row number to query (indexes start in 0):
+>> 150
+The index number is unvalid. Please try again.
+Select the row number to query (indexes start in 0):
+>> 149
+[150.    5.9   3.    5.1   1.8   3. ]
+Select and option
+>> 2
+Select 1 to query by row number or 2 to query by row name:
+>> 2
+Select the id to query:
+>> 150
+[150.    5.9   3.    5.1   1.8   3. ]
+Select and option
+>> 3
+Indicate a column to include:
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+>> ishioah
+The column indicated does not exit or has already been indicated. Please try again.
+Indicate a column to include:
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+>> flower.id
+Do you want to indicate another column? (Y/N)
+>> y
+Indicate a column to include:
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+>> sepal.length
+Do you want to indicate another column? (Y/N)
+>> Y
+Indicate a column to include:
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+>> sepal.width
+Do you want to indicate another column? (Y/N)
+>> N
+Showing the reduced dataset{\ldots}
+['flower.id', 'sepal.length', 'sepal.width']
+[[  1.    5.1   3.5]
+ [  2.    4.9   3. ]
+ [  3.    4.7   3.2]
+ [  4.    4.6   3.1]
+ [  5.    5.    3.6]
+ [  6.    5.4   3.9]
+ [  7.    4.6   3.4]
+ [  8.    5.    3.4]
+ [  9.    4.4   2.9]
+ [ 10.    4.9   3.1]
+ [ 11.    5.4   3.7]
+ [ 12.    4.8   3.4]
+ [ 13.    4.8   3. ]
+ [ 14.    4.3   3. ]
+ [ 15.    5.8   4. ]
+ [ 16.    5.7   4.4]
+ [ 17.    5.4   3.9]
+ [ 18.    5.1   3.5]
+ [ 19.    5.7   3.8]
+ [ 20.    5.1   3.8]
+ [ 21.    5.4   3.4]
+ [ 22.    5.1   3.7]
+ [ 23.    4.6   3.6]
+ [ 24.    5.1   3.3]
+ [ 25.    4.8   3.4]
+ [ 26.    5.    3. ]
+ [ 27.    5.    3.4]
+ [ 28.    5.2   3.5]
+ [ 29.    5.2   3.4]
+ [ 30.    4.7   3.2]
+ [ 31.    4.8   3.1]
+ [ 32.    5.4   3.4]
+ [ 33.    5.2   4.1]
+ [ 34.    5.5   4.2]
+ [ 35.    4.9   3.1]
+ [ 36.    5.    3.2]
+ [ 37.    5.5   3.5]
+ [ 38.    4.9   3.6]
+ [ 39.    4.4   3. ]
+ [ 40.    5.1   3.4]
+ [ 41.    5.    3.5]
+ [ 42.    4.5   2.3]
+ [ 43.    4.4   3.2]
+ [ 44.    5.    3.5]
+ [ 45.    5.1   3.8]
+ [ 46.    4.8   3. ]
+ [ 47.    5.1   3.8]
+ [ 48.    4.6   3.2]
+ [ 49.    5.3   3.7]
+ [ 50.    5.    3.3]
+ [ 51.    7.    3.2]
+ [ 52.    6.4   3.2]
+ [ 53.    6.9   3.1]
+ [ 54.    5.5   2.3]
+ [ 55.    6.5   2.8]
+ [ 56.    5.7   2.8]
+ [ 57.    6.3   3.3]
+ [ 58.    4.9   2.4]
+ [ 59.    6.6   2.9]
+ [ 60.    5.2   2.7]
+ [ 61.    5.    2. ]
+ [ 62.    5.9   3. ]
+ [ 63.    6.    2.2]
+ [ 64.    6.1   2.9]
+ [ 65.    5.6   2.9]
+ [ 66.    6.7   3.1]
+ [ 67.    5.6   3. ]
+ [ 68.    5.8   2.7]
+ [ 69.    6.2   2.2]
+ [ 70.    5.6   2.5]
+ [ 71.    5.9   3.2]
+ [ 72.    6.1   2.8]
+ [ 73.    6.3   2.5]
+ [ 74.    6.1   2.8]
+ [ 75.    6.4   2.9]
+ [ 76.    6.6   3. ]
+ [ 77.    6.8   2.8]
+ [ 78.    6.7   3. ]
+ [ 79.    6.    2.9]
+ [ 80.    5.7   2.6]
+ [ 81.    5.5   2.4]
+ [ 82.    5.5   2.4]
+ [ 83.    5.8   2.7]
+ [ 84.    6.    2.7]
+ [ 85.    5.4   3. ]
+ [ 86.    6.    3.4]
+ [ 87.    6.7   3.1]
+ [ 88.    6.3   2.3]
+ [ 89.    5.6   3. ]
+ [ 90.    5.5   2.5]
+ [ 91.    5.5   2.6]
+ [ 92.    6.1   3. ]
+ [ 93.    5.8   2.6]
+ [ 94.    5.    2.3]
+ [ 95.    5.6   2.7]
+ [ 96.    5.7   3. ]
+ [ 97.    5.7   2.9]
+ [ 98.    6.2   2.9]
+ [ 99.    5.1   2.5]
+ [100.    5.7   2.8]
+ [101.    6.3   3.3]
+ [102.    5.8   2.7]
+ [103.    7.1   3. ]
+ [104.    6.3   2.9]
+ [105.    6.5   3. ]
+ [106.    7.6   3. ]
+ [107.    4.9   2.5]
+ [108.    7.3   2.9]
+ [109.    6.7   2.5]
+ [110.    7.2   3.6]
+ [111.    6.5   3.2]
+ [112.    6.4   2.7]
+ [113.    6.8   3. ]
+ [114.    5.7   2.5]
+ [115.    5.8   2.8]
+ [116.    6.4   3.2]
+ [117.    6.5   3. ]
+ [118.    7.7   3.8]
+ [119.    7.7   2.6]
+ [120.    6.    2.2]
+ [121.    6.9   3.2]
+ [122.    5.6   2.8]
+ [123.    7.7   2.8]
+ [124.    6.3   2.7]
+ [125.    6.7   3.3]
+ [126.    7.2   3.2]
+ [127.    6.2   2.8]
+ [128.    6.1   3. ]
+ [129.    6.4   2.8]
+ [130.    7.2   3. ]
+ [131.    7.4   2.8]
+ [132.    7.9   3.8]
+ [133.    6.4   2.8]
+ [134.    6.3   2.8]
+ [135.    6.1   2.6]
+ [136.    7.7   3. ]
+ [137.    6.3   3.4]
+ [138.    6.4   3.1]
+ [139.    6.    3. ]
+ [140.    6.9   3.1]
+ [141.    6.7   3.1]
+ [142.    6.9   3.1]
+ [143.    5.8   2.7]
+ [144.    6.8   3.2]
+ [145.    6.7   3.3]
+ [146.    6.7   3. ]
+ [147.    6.3   2.5]
+ [148.    6.5   3. ]
+ [149.    6.2   3.4]
+ [150.    5.9   3. ]]
+Select and option
+>> 4
+Select the variable to use as x axis:
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+>> sepal.width
+Select the variable to use as y axis:
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+>> petal.leng
+The column does not exist. Please try again.
+Select the variable to use as y axis:
+['flower.id', 'sepal.length', 'sepal.width', 'petal.length', 'petal.width', 'variety']
+>> petal.length
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Select and option
+>> 5
+
+    \end{Verbatim}
+
+    \hypertarget{questions}{%
+\subsection{Questions}\label{questions}}
+
+Please answer the following questions to appraise your level of
+engagement with the content of the course. Use the Markdown cell
+corresponding to each question to write your answers.
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Is there any other data structure or module in Python (besides
+  \emph{numpy}) which would allow you to import a \emph{.csv} file in a
+  more practical and manageable way? Use a code cell to support your
+  answer.
+\end{enumerate}
+
+    \textbf{ANSWER:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to import your dataset with a data structure other than numpy}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Using any of the two continuous variables of your dataset, using a
+  cell code show an example of how a \textbf{linear regression} could be
+  applied with your dataset to predict the values of future entries of
+  data without target/class (you can implement linear regressions using
+  existing Python modules). Moreover, discuss if there is any metric
+  that can be used to decide which two variables are the most
+  correlated.
+\end{enumerate}
+
+    \textbf{ANSWER:}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Use this cell to implement a linear regression between two variables}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

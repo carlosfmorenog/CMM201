@@ -1,0 +1,1 @@
+change the lab activity to first make them run the options and then incorporate them in the menu
